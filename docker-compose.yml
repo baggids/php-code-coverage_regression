@@ -1,0 +1,14 @@
+services:
+  coverage-bug:
+    build: .
+    image: coverage-bug-report:latest
+    working_dir: /app
+    volumes:
+      - .:/app
+      - vendor:/app/vendor
+    command: sh -c "[ -f vendor/autoload.php ] || composer install --prefer-dist --no-scripts --no-progress -q && sh bug-demo.sh"
+    environment:
+      XDEBUG_MODE: coverage
+
+volumes:
+  vendor:
